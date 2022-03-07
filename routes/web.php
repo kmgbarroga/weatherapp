@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 Route::get('/test', [WeatherController::class, 'requestGeoDetails']);
 Route::get('/', [WeatherController::class, 'index']);
+Route::get('/city/weather',[WeatherController::class,'requestCityWeather']);
