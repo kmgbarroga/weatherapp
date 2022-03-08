@@ -19,5 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/test', [WeatherController::class, 'requestGeoDetails']);
-Route::get('/', [WeatherController::class, 'index']);
-Route::get('/city/weather',[WeatherController::class,'requestCityWeather']);
+Route::get('/', [WeatherController::class, 'index'])->name('index');
+Route::post('/city/weather',[WeatherController::class,'requestCityWeather'])->name('city.weather');

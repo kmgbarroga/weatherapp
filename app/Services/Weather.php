@@ -26,23 +26,33 @@ class Weather {
 
         // verify if api call is ok
         if($cityDetails->ok()){
-            $cityDetails = json_decode($cityDetails->body());
-            $info['lon'] = $cityDetails[0]->lon;
-            $info['lat'] = $cityDetails[0]->lat;
+            if(!isEmpty($cityDetails->body())){
+                $cityDetails = json_decode($cityDetails->body());
+                $info['name'] = $cityDetails[0]->name;
+                $info['country'] = $cityDetails[0]->country;
+                $info['lon'] = $cityDetails[0]->lon;
+                $info['lat'] = $cityDetails[0]->lat;
+            }
+
         }
 
         return $info;
     }
 
     public function fetchCityWeather($info){
-        $cityWeather = [];
+        if(isEmpty($info)){
+            return 422;
+        }
+        $information = [];
         $response = Http::get("api.openweathermap.org/data/2.5/weather",[
             'lat'=>$info['lat'],
             'lon'=>$info['lon'],
             'appid'=> $this->apiKey
         ]);
+        $information['cityData'] = $info;
+        $information['cityWeather'] = $response->body();
 
-        return json_decode($response->body());
+        return json_encode($information);
     }
 
     public function getCityWeatherInfo($cityName){
