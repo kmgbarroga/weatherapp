@@ -11,7 +11,21 @@ class WeatherController extends Controller
 {
 
     public function index(){
-        return view('weather.index');
+        $cityWeather = new Weather();
+        /**
+         * Display weather for the possible cities that foreign
+         * tourist will visit
+         */
+        $cities = ['Tokyo','Yokohama','Kyoto','Osaka','Nagoya'];
+        $citiesWeather = [];
+        foreach($cities as $currCity){
+            // fetch weather info for each city
+            $citiesWeather[$currCity] = json_decode($cityWeather->fetchCityWeather($currCity));
+        }
+        
+        return view('weather.index',[
+            'citiesWeather'=>$citiesWeather
+        ]);
 
     }
 
@@ -29,16 +43,11 @@ class WeatherController extends Controller
         if(!$validator->fails()){
             $validatedData = $validator->validated();
         }else{
-            return response()->json(['errors' => ['message' => ['The City Input is Invalid.']]], 422);
+            return response()->json(['errors' => ['message' => ['The City Input is Empty.']]], 422);
         }
 
         $cityWeather = new Weather();
-        $cityDetails = $cityWeather->fetchCityDetails($validatedData['city']);
-        $cityWeatherInfo = $cityWeather->getCityWeatherInfo($validatedData['city']);
-
-        if($cityWeatherInfo == 422){
-            return response()->json(['errors' => ['message' => ['The City Input is Invalid.']]], 422);
-        }
-        return json_encode($cityDetails);
+        $cityWeatherInfo = $cityWeather->fetchCityWeather($validatedData['city']);
+        return response()->json($cityWeatherInfo);
     }
 }
