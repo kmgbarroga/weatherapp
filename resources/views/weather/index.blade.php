@@ -69,12 +69,11 @@
                         city:cityVal
                     },
                     success:function(dataresponse){
-                        console.log(dataresponse)
+                        window.open("{{ URL::to('/') }}/city/forecast/places/"+cityVal);
                     },
                     error:function(errResponse){
                         var errorObj = errResponse.responseJSON;
-                        console.log(errorObj);
-                        console.log(errorObj['errors']['message']);
+                        alert(errorObj['errors']['message'])
                     }
                 });
             }

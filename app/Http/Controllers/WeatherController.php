@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Services\Weather;
 use App\Services\Places;
+use function PHPUnit\Framework\isEmpty;
 use Illuminate\Support\Facades\Validator;
 
 class WeatherController extends Controller
@@ -65,6 +66,10 @@ class WeatherController extends Controller
 
         $cityWeather = new Weather();
         $cityWeatherInfo = $cityWeather->fetchCityWeather($validatedData['city']);
+        // dd($cityWeatherInfo);
+        if( isEmpty(json_decode($cityWeatherInfo->body())) ){
+            return response()->json(['errors' => ['message' => ['No Data Found for City.']]], 422);
+        }
         return response()->json($cityWeatherInfo);
     }
 }
