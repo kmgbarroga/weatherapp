@@ -29,10 +29,18 @@ class WeatherController extends Controller
 
     }
 
-    public function requestCityForecastAndPlaces(Request $request){
-        $validatedData = $request->validate([
-            'city' => ['required'],
-        ]);
+    public function requestCityForecastAndPlaces($city){
+
+        if(!empty($city)){
+            $cityWeather = new Weather();
+            $cityWeatherInfo = json_decode($cityWeather->fetchCityWeather($city));
+            $forecasts = json_decode($cityWeather->fetchCityForecast($city));
+
+            return view('weather.forecast',[
+                'cityWeatherInfo'=>$cityWeatherInfo,
+                'forecasts'=>$forecasts
+            ]);
+        }
 
     }
 

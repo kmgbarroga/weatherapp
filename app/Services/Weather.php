@@ -26,5 +26,17 @@ class Weather {
         return $information['cityWeather'];
 
     }
+
+    public function fetchCityForecast($city){
+        $response = Http::get("api.openweathermap.org/data/2.5/forecast",[
+            'q'=>$city,
+            'appid'=>$this->apiKey,
+            'units'=>'metric',
+            'cnt'=>5
+        ]);
+        $cityForecast = $response->body();
+
+        return $cityForecast;
+    }
 }
 
