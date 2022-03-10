@@ -45,7 +45,7 @@ class WeatherController extends Controller
             // dd($params);
 
             $forecasts = json_decode($cityWeather->fetchCityForecast($city));
-            // $places = json_decode($placesObj->getNearbyPlaces($params));
+            $places = json_decode($placesObj->getNearbyPlaces($params));
             return view('weather.forecast',[
                 'cityWeatherInfo'=>$cityWeatherInfo,
                 'forecasts'=>$forecasts,

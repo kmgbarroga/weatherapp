@@ -75,7 +75,7 @@
             </div>
         @empty
             <h5>Unforunately there are no Records Found.</h5>
-        @endforeach
+        @endforelse
     </div>
     <h5 class="text-center mb-5">Places Nearby</h5>
     <div class="row" id="places-nearby-container">
