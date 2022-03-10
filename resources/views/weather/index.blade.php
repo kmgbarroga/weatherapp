@@ -21,6 +21,7 @@
 
         </div>
     </div>
+
     <div class="row" id="cities-weather-container">
         @forelse ($citiesWeather as $currCityWeather)
 
@@ -29,11 +30,12 @@
                     <div class="card-body p-4 text-center">
 
                         <h4 class="mb-1 sfw-normal">{{ $currCityWeather->name }}, {{ $currCityWeather->sys->country }}</h4>
+                        <p>As of: <strong>{{ date("F j, Y, g:i a",$currCityWeather->dt) }}</strong> </p>
                         <img class="" src=" http://openweathermap.org/img/wn/{{ $currCityWeather->weather[0]->icon }}@2x.png" alt="Weather Icon">
                         <h5>Temperature: <strong>  {{ $currCityWeather->main->temp }} °C </strong></h5>
                         <p> <strong>Feels like: {{ $currCityWeather->main->feels_like }}°C. {{ $currCityWeather->weather[0]->main }}</strong></p>
-                        <p>Min: <strong>{{ $currCityWeather->main->temp_min }}°C</strong>, Max: <strong>{{ $currCityWeather->main->temp_min }}°C</strong></p>
-
+                        <p>Min: <strong>{{ $currCityWeather->main->temp_min }}°C</strong>, Max: <strong>{{ $currCityWeather->main->temp_max }}°C</strong></p>
+                        <a href="{{ route('city.forecast.places',['city'=>$currCityWeather->name]) }}" class="btn btn-secondary"> <i class="fa fa-cloud-sun-rain"></i> <i class="fa fa-city"></i> View Forecast and Popular Places</a>
                     </div>
                 </div>
             </div>

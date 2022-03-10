@@ -14,10 +14,6 @@ use App\Http\Controllers\WeatherController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/test', [WeatherController::class, 'requestGeoDetails']);
 Route::get('/', [WeatherController::class, 'index'])->name('index');
 Route::post('/city/weather',[WeatherController::class,'requestCityWeather'])->name('city.weather');
+Route::get('/city/forecast/places/{city}',[WeatherController::class,'requestCityForecastAndPlaces'])->name('city.forecast.places');

@@ -22,19 +22,17 @@ class WeatherController extends Controller
             // fetch weather info for each city
             $citiesWeather[$currCity] = json_decode($cityWeather->fetchCityWeather($currCity));
         }
-        
+
         return view('weather.index',[
             'citiesWeather'=>$citiesWeather
         ]);
 
     }
 
-    public function requestCityForecast(Request $request){
+    public function requestCityForecastAndPlaces(Request $request){
         $validatedData = $request->validate([
             'city' => ['required'],
         ]);
-
-
 
     }
 
