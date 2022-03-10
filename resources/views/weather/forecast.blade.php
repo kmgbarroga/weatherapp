@@ -82,7 +82,7 @@
         @forelse ($places->results as $eachPlace)
             <ul style="list-style-type: none;">
                 <li>Name: {{ $eachPlace->name }}</li>
-                <li>Category: {{ $eachPlace->categories->name }}</li>
+                <li>Category: {{ $eachPlace->categories[0]->name }}</li>
                 <li>Address: {{ $eachPlace->location->formatted_address }}</li>
                 <li>Post Code: {{ $eachPlace->location->postcode }}</li>
             </ul>
