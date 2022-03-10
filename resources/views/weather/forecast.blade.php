@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="container">
-    {{-- justify-content-center --}}
+
     <div class="row mb-5">
         <div class="col-md-5 mb-2">
             <div class="card shadow-0 border mb-2 h-100">
@@ -61,7 +61,7 @@
     </div>
     <h5 class="text-center mb-5">Weather Forecast</h5>
     <div class="row" id="forecast-container">
-        @foreach ($forecasts->list as $currForecast)
+        @forelse ($forecasts->list as $currForecast)
             <div class="col-md-3">
                 <div class="card shadow-0 border mb-2">
                     <div class="card-body p-4 text-center">
@@ -73,8 +73,26 @@
                     </div>
                 </div>
             </div>
+        @empty
+            <h5>Unforunately there are no Records Found.</h5>
         @endforeach
     </div>
+    <h5 class="text-center mb-5">Places Nearby</h5>
+    <div class="row" id="places-nearby-container">
+        @forelse ($places->results as $eachPlace)
+            <ul style="list-style-type: none;">
+                <li>Name: {{ $eachPlace->name }}</li>
+                <li>Category: {{ $eachPlace->categories->name }}</li>
+                <li>Address: {{ $eachPlace->location->formatted_address }}</li>
+                <li>Post Code: {{ $eachPlace->location->postcode }}</li>
+            </ul>
+            <br>
+        @empty
+            <h5>Unforunately there are no Records Found For the Nearby Places.</h5>
+        @endforelse
+
+    </div>
+
 
 
 </div>

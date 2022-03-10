@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Services\Weather;
+use App\Services\Places;
 use Illuminate\Support\Facades\Validator;
 
 class WeatherController extends Controller
@@ -32,13 +33,23 @@ class WeatherController extends Controller
     public function requestCityForecastAndPlaces($city){
 
         if(!empty($city)){
+            $params = [];
             $cityWeather = new Weather();
+            $placesObj = new Places();
             $cityWeatherInfo = json_decode($cityWeather->fetchCityWeather($city));
-            $forecasts = json_decode($cityWeather->fetchCityForecast($city));
+            if( empty($cityWeatherInfo) ){
+                return abort('404');
+            }
+            $params['city'] = $city;
+            $params['lonlat'] = $cityWeatherInfo->coord->lat .",".$cityWeatherInfo->coord->lat;
+            // dd($params);
 
+            $forecasts = json_decode($cityWeather->fetchCityForecast($city));
+            // $places = json_decode($placesObj->getNearbyPlaces($params));
             return view('weather.forecast',[
                 'cityWeatherInfo'=>$cityWeatherInfo,
-                'forecasts'=>$forecasts
+                'forecasts'=>$forecasts,
+                'places'=>$places
             ]);
         }
 
