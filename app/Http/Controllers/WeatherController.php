@@ -38,7 +38,7 @@ class WeatherController extends Controller
             $cityWeather = new Weather();
             $placesObj = new Places();
             $cityWeatherInfo = json_decode($cityWeather->fetchCityWeather($city));
-            if( empty($cityWeatherInfo) ){
+            if($cityWeatherInfo->cod != 200){
                 return abort('404');
             }
             $params['city'] = $city;
@@ -64,9 +64,8 @@ class WeatherController extends Controller
         }
 
         $cityWeather = new Weather();
-        $cityWeatherInfo = $cityWeather->fetchCityWeather($validatedData['city']);
-
-        if( isEmpty(json_decode($cityWeatherInfo)) ){
+        $cityWeatherInfo = json_decode($cityWeather->fetchCityWeather($validatedData['city']));
+        if($cityWeatherInfo->cod != 200){
             return response()->json(['errors' => ['message' => ['No Data Found for City.']]], 422);
         }
         return response()->json($cityWeatherInfo);
