@@ -88,7 +88,7 @@
             </ul>
             <br>
         @empty
-            <h5>Unforunately there are no Records Found For the Nearby Places.</h5>
+            <h5 class="text-center">Unforunately there are no Records Found For the Nearby Places.</h5>
         @endforelse
 
     </div>
@@ -99,7 +99,6 @@
 @endsection
 
 @section('customjs')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
     <script>
         $(document).ready(function(){
             $.ajaxSetup({
