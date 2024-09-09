@@ -52,7 +52,7 @@ $ composer install
 $ npm install
 ```
 
-4. Set up .env file (API Keys are found in the .env.example). Copy .env.example to .env .
+4. Set up .env file (API Keys are found in the .env.example). Copy .env.example to .env . (The API Keys are just examples, kindly use your own API Keys)
 
 ```
 $ cp .env.example .env
